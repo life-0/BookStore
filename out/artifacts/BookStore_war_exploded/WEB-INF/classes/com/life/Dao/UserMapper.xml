@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//Mapper.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.life.Dao.UserMapper">
+    <!--用于验证登陆-->
+    <select id="QueryUser" parameterType="map" resultType="user">
+        select *
+        from User
+        where ID = #{ID}
+          and pwd = #{pwd};
+    </select>
+
+    <select id="AllUsers" resultType="user">
+        select *
+        from user
+    </select>
+
+    <select id="QueryRelation" resultType="relationship">
+        select *
+        from relationship
+    </select>
+
+    <select id="QueryByUserID" parameterType="int" resultType="relationship">
+        select *
+        from relationship
+        where UserID = #{UserID}
+          and Amount != 0
+    </select>
+
+    <!--查询统计已借书数量,判断是否还有借书资格,关系表中的每个人只能借8本书,(8个元组)-->
+    <select id="eligibility" parameterType="int" resultType="int">
+        select count(UserID)
+        from relationship
+        where UserID = #{UserID}
+    </select>
+
+    <!--借书-->
+    <!--查询特定的人的ID是否总共有8本书(无论借书的数目是否有到8本)
+        如果少于8条数据则添加操作(以下)
+    -->
+    <insert id="AddRelation" parameterType="relationship">
+        insert into relationship (UserID, BookName, ISBN, lend, back, Amount)
+        values (#{UserID}, #{BookName}, #{ISBN}, #{lend}, #{back}, #{Amount})
+    </insert>
+
+    <!--查询指定用户的指定书本的存储个数-->
+    <select id="queryBooksDetail" resultType="int">
+        select ifnull(sum(Amount), 0)
+        from relationship
+        where UserID = #{param1}
+          and BookName = #{param2}
+          and Amount != 0;
+    </select>
+    <!--借书过程中借书成功需要修改关系表,书表-->
+    <update id="lendBook" parameterType="map">
+        update relationship
+        set Amount=Amount + #{Amount}
+        where BookName=#{BookName} and UserID =#{UserID}
+        <!-- update relationship set
+         BookName = #{BookName}, ISBN = #{ISBN}, lend = #{lend}, Amount = #{Amount}
+         where UserID=#{UserID} and Amount=0 order by UserID asc limit 1-->
+    </update>
+
+    <update id="LUpdateAmount" parameterType="map">
+        update books set
+        <if test="status != null">
+            status = status - #{status}
+        </if>
+        <where>
+            <if test="ISBN!=null">
+                ISBN = #{ISBN}
+            </if>
+            <if test="status!=null">
+                and status>0;
+            </if>
+        </where>
+    </update>
+
+    <!--还书 :必须知道书的ISBN号,用户的UserID号 还书成功后Amount-1=0,back有时间-->
+    <update id="ReturnBook" parameterType="map">
+        update relationship r,books b set
+
+        <if test="back!=null">
+            r.back=#{back},
+        </if>
+        <if test="Amount!=null">
+            r.Amount=r.Amount - #{Amount},
+        </if>
+
+        <if test="status!=null">
+            b.status=b.status + #{status}
+        </if>
+        <where>
+            <if test="ISBN!=null">
+                r.ISBN = #{ISBN} and b.ISBN = #{ISBN}
+            </if>
+            <if test="UserID!=null">
+                and r.UserID=#{UserID}
+            </if>
+            <if test="Amount!=null">
+                and r.Amount>0
+            </if>
+        </where>
+    </update>
+    <!--查询用户已经借了多少本书-->
+    <select id="queryUserBookCount" resultType="int">
+        select sum(Amount)
+        from relationship
+        where UserID = #{UserID}
+    </select>
+</mapper>

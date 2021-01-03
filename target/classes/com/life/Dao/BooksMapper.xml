@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//Mapper.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.life.Dao.BooksMapper">
+    <select id="ShowAllBooks" resultType="books">
+        select *
+        from books;
+    </select>
+
+    <select id="QueryBooks" parameterType="String" resultType="books">
+        select * from books
+        <where>
+            <if test="name !=null">
+                name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="AddBooks" parameterType="books">
+        insert into books(ISBN, name, author, press, price, introduction,
+                          status, classification, count)
+        values (#{ISBN}, #{name}, #{author}, #{press}, #{price}, #{introduction},
+                #{status}, #{classification}, #{count})
+    </insert>
+
+    <delete id="deleteBooksByISBN" parameterType="string">
+        delete
+        from books
+        where ISBN = #{ISBN}
+    </delete>
+
+    <!--ISBN, name, author, Press, price, introduction,
+                      status, classification, Count
+                      -->
+    <update id="updateBooks" parameterType="books">
+        update books set
+        <if test="name != null">
+            name = #{name},
+        </if>
+        <if test="author != null">
+            author = #{author},
+        </if>
+        <if test="press != null">
+            press = #{press},
+        </if>
+        <if test="price != null">
+            price = #{price},
+        </if>
+        <if test="introduction != null">
+            introduction = #{introduction},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        <if test="classification != null">
+            classification = #{classification},
+        </if>
+        <if test="count != null">
+            count =#{count}
+        </if>
+        where ISBN = #{ISBN}
+    </update>
+</mapper>
