@@ -11,7 +11,7 @@
 
         function Redirect() {
             let searching = document.getElementById('search');
-            if (searching.value!=""){
+            if (searching.value!==""){
                 window.open("${pageContext.request.contextPath}/QueryBook?name="+searching.value+"&flag=admin",'_self')
                 //http://localhost:8080/QueryBook?name=%E8%B5%84%E6%9C%AC%E8%AE%BA?flag=admin
             }else{

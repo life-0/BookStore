@@ -6,12 +6,15 @@ import com.life.POJO.User;
 import com.life.Service.BooksService;
 import com.life.Service.UserService;
 import com.life.Utils.GetUserName;
+import com.life.Utils.IDUtils;
 import com.life.Utils.TimeConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -69,6 +72,28 @@ public class User_control {
         } else {
             return "/login";
         }
+    }
+
+    /*用户注册*/
+    @RequestMapping("/Register")
+    public String toRegister() {
+        return "/register";
+    }
+
+    @RequestMapping("/UserRegister")
+    @ResponseBody
+    public String register( HttpServletResponse response, HttpServletRequest request,
+                          @RequestBody User user ) throws UnsupportedEncodingException {
+        request.setCharacterEncoding ("utf-8");
+        response.setContentType ("text/html;charset=utf-8");
+//        String id =request.getParameter ("ID");
+//        String name = request.getParameter ("name");
+//        String university = request.getParameter ("university");
+//        String role = request.getParameter ("role");
+//        String password = request.getParameter ("pwd");
+//        User user = new User (Integer.parseInt (id),password, IDUtils.getRandomID (),name,university,role);
+        System.out.println (user.toString ());
+        return "error";
     }
 
     //查询用户关系表中的数据以及相应的书籍详细信息
@@ -221,3 +246,4 @@ public class User_control {
         return "/UserHome";
     }
 }
+/* */

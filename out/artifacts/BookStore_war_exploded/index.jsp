@@ -33,7 +33,7 @@
           function stop() {
               window.clearInterval(end);
           }
-          if (getCookie("LendBook")=="false"){
+          if (getCookie("LendBook")==="false"){
               window.alert("借书失败! 请先还书再借书");
           }
 
