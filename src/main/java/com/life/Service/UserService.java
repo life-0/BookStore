@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserService {
+    int addUser(User user); //添加用户
+
+    User QueryUserByUUID(String UUID); //查询用户通过UUID
+
     User QueryUser(Map<String, Object> map); //登陆验证查询
 
     List<User> AllUsers();  //查看所有可以借书的人的表

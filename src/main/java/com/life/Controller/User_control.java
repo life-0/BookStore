@@ -40,36 +40,35 @@ public class User_control {
     @Qualifier("BooksServiceImpl")
     private BooksService booksService;
 
-
+    @RequestMapping({"/", "/index"})
+    public String mo(){
+        return "index";
+    }
+    @RequestMapping("/Login")
+    public String toLogin(){
+        return "/login";
+    }
     @RequestMapping("/UserLogin")
-    public String login(Model model, HttpServletResponse response, HttpServletRequest request)
+    public String login( HttpServletResponse response, HttpServletRequest request)
             throws UnsupportedEncodingException {
         request.setCharacterEncoding ("utf-8");
         response.setContentType ("text/html;charset=utf-8");
 
         String id = request.getParameter ("ID");
         String pwd = request.getParameter ("pwd");
-        String results = request.getParameter ("result");
+       /* String results = request.getParameter ("result");*/
         System.out.println ("ID: " + id + "\npwd: " + pwd);
         HashMap<String, Object> map = new HashMap<> ();
         map.put ("ID", id);
         map.put ("pwd", pwd);
         User user = userService.QueryUser (map);
-
         Cookie username = new Cookie ("username", id);
-        Cookie value = new Cookie ("value", pwd);
+        Cookie value = new Cookie ("value", user.getName ());
         response.addCookie (username);
         response.addCookie (value);
-
         if (user != null) {
-            results = "true";
-        }
-        System.out.println ("-------------------" + results + "-------------------");
-        model.addAttribute ("result", results);
-        if (Boolean.valueOf (results)) {
-            /*forward:AllBooks*/
-            return "forward:/index.jsp";
-        } else {
+            return "forward:/index";
+        }else {
             return "/login";
         }
     }
@@ -81,19 +80,30 @@ public class User_control {
     }
 
     @RequestMapping("/UserRegister")
-    @ResponseBody
-    public String register( HttpServletResponse response, HttpServletRequest request,
-                          @RequestBody User user ) throws UnsupportedEncodingException {
+    public String register(HttpServletResponse response, HttpServletRequest request)
+            throws UnsupportedEncodingException {
         request.setCharacterEncoding ("utf-8");
         response.setContentType ("text/html;charset=utf-8");
-//        String id =request.getParameter ("ID");
-//        String name = request.getParameter ("name");
-//        String university = request.getParameter ("university");
-//        String role = request.getParameter ("role");
-//        String password = request.getParameter ("pwd");
-//        User user = new User (Integer.parseInt (id),password, IDUtils.getRandomID (),name,university,role);
-        System.out.println (user.toString ());
-        return "error";
+
+        String name = request.getParameter ("name");
+        String university = request.getParameter ("University");
+        String role = request.getParameter ("occupation");
+        String password = request.getParameter ("pwd");
+        String uuid = IDUtils.getRandomID ();
+        User user = new User (password, uuid, name, university, role);
+        int flag = userService.addUser (user);  //添加成功返回值为1
+        if (flag > 0) {
+            User checked = userService.QueryUserByUUID (uuid);
+            Cookie username = new Cookie ("username", String.valueOf (checked.getId ()));
+            Cookie value = new Cookie ("value", checked.getName ());
+            response.addCookie (username);
+            response.addCookie (value);
+            return "redirect:/UserLogin";
+        }else {
+            return "/Register";
+        }
+
+
     }
 
     //查询用户关系表中的数据以及相应的书籍详细信息
@@ -246,4 +256,3 @@ public class User_control {
         return "/UserHome";
     }
 }
-/* */

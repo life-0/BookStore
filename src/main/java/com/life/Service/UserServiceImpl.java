@@ -24,6 +24,16 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public int addUser(User user) {
+        return userMapper.addUser (user);
+    }
+
+    @Override
+    public User QueryUserByUUID(String UUID) {
+        return userMapper.QueryUserByUUID (UUID);
+    }
+
+    @Override
     public User QueryUser(Map<String, Object> map) {
         return userMapper.QueryUser (map);
     }

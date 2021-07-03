@@ -2,6 +2,7 @@ import com.life.POJO.Relationship;
 import com.life.POJO.User;
 import com.life.Service.BooksServiceImpl;
 import com.life.Service.UserServiceImpl;
+import com.life.Utils.IDUtils;
 import com.life.Utils.TimeConvert;
 import lombok.SneakyThrows;
 import org.junit.Test;
@@ -20,6 +21,23 @@ import java.util.Map;
  *@Description: TODO
  */
 public class testUser {
+    @Test
+    public void addUser() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext ("applicationContext.xml");
+        UserServiceImpl userServiceImpl = context.getBean ("UserServiceImpl", UserServiceImpl.class);
+//        System.out.println (IDUtils.getRandomID ().length ());
+        User user = new User ("123", IDUtils.getRandomID (), "四十五i", "大学士", "学生");
+        int i = userServiceImpl.addUser (user);
+
+    }
+    @Test
+    public void QueryUserByUUID() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext ("applicationContext.xml");
+        UserServiceImpl userServiceImpl = context.getBean ("UserServiceImpl", UserServiceImpl.class);
+        User user = userServiceImpl.QueryUserByUUID ("7b105619bc4749d3aa0f934e8f7798da");
+        System.out.println (user.toString ());
+
+    }
     @Test
     public void AllUsers() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext ("applicationContext.xml");
@@ -92,16 +110,16 @@ public class testUser {
 //        System.out.println (count);
 
         Usermap.put ("UserID", 1);
-        Usermap.put ("BookName", "书籍重复测试" );
+        Usermap.put ("BookName", "书籍重复测试");
         Usermap.put ("ISBN", "cfccb541104045bc96860fc2f2870605");
-        Usermap.put ("lend",convert.definiteTime ("2020-7-5 18:00:00") );
+        Usermap.put ("lend", convert.definiteTime ("2020-7-5 18:00:00"));
         Usermap.put ("Amount", 1);
         userServiceImpl.lendBook (Usermap);
 
 
-        Map<String,Object> Bookmap=new HashMap<> ();
-        Bookmap.put ("status",1);
-        Bookmap.put ("ISBN","cfccb541104045bc96860fc2f2870605" );
+        Map<String, Object> Bookmap = new HashMap<> ();
+        Bookmap.put ("status", 1);
+        Bookmap.put ("ISBN", "cfccb541104045bc96860fc2f2870605");
         userServiceImpl.LUpdateAmount (Bookmap);
 
         List<Relationship> relationships = userServiceImpl.QueryByUserID (1);

@@ -44,20 +44,6 @@
                 }
             });
 
-            $(".account").bind('blur', function () {
-                let data = $(".account").val();
-                let Reg = /^1[3-9]\d{9}$/;
-                check_1 = Reg.test(data);
-                // console.log(check_1)
-                if (data === "") {
-                    $("#AccSpan").text("不能为空!")
-                }
-                if (!check_1) {
-                    $("#AccSpan").text("请输入正确的电话号码格式")
-                } else {
-                    $("#AccSpan").text("");
-                }
-            });
 
             $(".pwd").bind('blur', function () {
                 temp = $(".pwd").val();
@@ -116,25 +102,29 @@
             $(".Sign").bind('click', function () {
                 //verification();
                 let formObject = {};
-                let name=$(".username");
-                let ID=$(".account");
-                let university=$(".unit");
-                let role=$(".form-check-input");
-                let pwd=$(".pwd")
+                let name = $(".username");
+                let ID = $(".account");
+                let university = $(".unit");
+                let role = $(".form-check-input");
+                let pwd = $(".pwd")
 
                 formObject[name.attr("name")] = name.val();
                 formObject[ID.attr("name")] = ID.val();
                 formObject[university.attr("name")] = university.val();
                 formObject[role.attr("name")] = $(".form-check-input:input:radio:checked").val();
                 $.each(formObject, function (i, item) {
-                    console.log(formObject[item.name] +": "+item.value);
+                    console.log(formObject[item.name] + ": " + item.value);
                 });
-                /*console.log($(".username").attr("name"))
-                console.log($(".username").val())
-                console.log($(".account").val())
-                console.log($(".university").val())
-                console.log($(".form-check-input:input:radio:checked").val())
-                console.log($(".university").val())*/
+                /*  console.log(name.attr("name"))
+                  console.log(name.val())
+                  console.log(ID.attr("name"))
+                  console.log(ID.val())
+                  console.log(university.attr("name"))
+                  console.log(university.val())
+                  console.log(role.attr("name"))
+                  console.log($(".form-check-input:input:radio:checked").val())
+                  console.log(pwd.attr("name"))
+                  console.log(pwd.val())*/
                 $.ajax({
                     type: "POST", //提交方式
                     // dataType: "json",    //指定返回的数据类型
@@ -172,88 +162,79 @@
     <h1>Register</h1>
 </div>
 <div class="col-md-12 ">
-    <form class="form-horizontal commit">
+    <form class="form-horizontal commit" action="${pageContext.request.contextPath}/UserRegister" method="post">
         <div align="center">
-            <form class="form-data">
-                <div class="form-group">
-                    <label for="Name" class="col-sm-5 control-label">用户姓名</label>
-                    <div class="col-sm-2">
-                        <input type="text" name="name" class="form-control username "
-                               style="width:300px;"
-                               id="Name" placeholder="Name">
-                        <span class="tip_1" style="font-size: 12px; color: red;" disabled></span>
-                    </div>
+            <div class="form-group">
+                <label for="Name" class="col-sm-5 control-label">用户姓名</label>
+                <div class="col-sm-2">
+                    <input type="text" name="name" class="form-control username "
+                           style="width:300px;"
+                           id="Name" placeholder="Name">
+                    <span class="tip_1" style="font-size: 12px; color: red;" disabled></span>
                 </div>
-                <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-5 control-label">账号</label>
-                    <div class="col-sm-2">
-                        <input type="text" name="ID" class="form-control account "
-                               style="width:300px;"
-                               id="inputEmail3" placeholder="必须以数字设置">
-                        <span style="font-size: 12px; color: red;" id="AccSpan" disabled></span>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label for="university-name" class="col-sm-5 control-label">大学</label>
+                <div class="col-sm-2">
+                    <input type="text" name="University" class="form-control  unit"
+                           style="width:300px;"
+                           id="university-name" placeholder="university">
+                    <span class="tip_1" style="font-size: 12px; color: red;" disabled></span>
                 </div>
-                <div class="form-group">
-                    <label for="university-name" class="col-sm-5 control-label">大学</label>
-                    <div class="col-sm-2">
-                        <input type="text" name="University" class="form-control  unit"
-                               style="width:300px;"
-                               id="university-name" placeholder="university">
-                        <span class="tip_1" style="font-size: 12px; color: red;" disabled></span>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-5 control-label">角色</label>
+                <div class="col-sm-3 ">
+                    <div style="display: inline;float: left;margin-right: 30px">
+                        <label>
+                            <input class="form-check-input" checked="checked"
+                                   type="radio" name="occupation" value="学生">
+                            学生
+                        </label>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-5 control-label">角色</label>
-                    <div class="col-sm-3 ">
-                        <div style="display: inline;float: left;margin-right: 30px">
-                            <label>
-                                <input class="form-check-input" checked="checked"
-                                       type="radio" name="occupation" value="学生">
-                                学生
-                            </label>
-                        </div>
-                        <div style="display: inline;float: left;margin-right: 30px">
-                            <label>
-                                <input class="form-check-input" type="radio" name="occupation" value="教师">
-                                教师
-                            </label>
-                        </div>
-                        <div style="display: inline;float: left;margin-right: 30px">
-                            <label>
-                                <input class="form-check-input" type="radio" name="occupation" value="其他">
-                                其他
-                            </label>
-                        </div>
-                        <!--<input type="text" name="role" class="form-control" placeholder="学生">-->
+                    <div style="display: inline;float: left;margin-right: 30px">
+                        <label>
+                            <input class="form-check-input" type="radio" name="occupation" value="教师">
+                            教师
+                        </label>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-5 control-label">密码</label>
-                    <div class="col-sm-2">
-                        <input type="password" name="pwd" class="form-control pwd"
-                               style="width:300px;"
-                               id="inputPassword3" placeholder="Password">
-                        <span style="font-size: 12px; color: red;" id="pwdSpan" disabled></span>
+                    <div style="display: inline;float: left;margin-right: 30px">
+                        <label>
+                            <input class="form-check-input" type="radio" name="occupation" value="其他">
+                            其他
+                        </label>
                     </div>
+                    <!--<input type="text" name="role" class="form-control" placeholder="学生">-->
                 </div>
-                <div class="form-group">
-                    <label for="inputPassword4" class="col-sm-5 control-label">确认密码</label>
-                    <div class="col-sm-2">
-                        <input type="password" name="pwd" class="form-control def_pwd"
-                               style="width:300px;"
-                               id="inputPassword4" placeholder="Definite Password">
-                        <span style="font-size: 12px; color: red;" id="def_pwdSpan" disabled></span>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-5 control-label">密码</label>
+                <div class="col-sm-2">
+                    <input type="password" name="pwd" class="form-control pwd"
+                           style="width:300px;"
+                           id="inputPassword3" placeholder="Password">
+                    <span style="font-size: 12px; color: red;" id="pwdSpan" disabled></span>
                 </div>
-            </form>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword4" class="col-sm-5 control-label">确认密码</label>
+                <div class="col-sm-2">
+                    <input type="password" name="pwd" class="form-control def_pwd"
+                           style="width:300px;"
+                           id="inputPassword4" placeholder="Definite Password">
+                    <span style="font-size: 12px; color: red;" id="def_pwdSpan" disabled></span>
+                </div>
+            </div>
+        </div>
+        <div align="center">
+            <div class="col-sm-offset-2 col-sm-8">
+                <button class="btn btn-default Sign ">
+                    <input type="submit" value="Sign in" style="border:none;background:none;cursor:pointer;"></button>
+                <button class="btn btn-default reset-btn">Reset</button>
+            </div>
         </div>
     </form>
-    <div align="center">
-        <div class="col-sm-offset-2 col-sm-8">
-            <button class="btn btn-default Sign">Sign in</button>
-            <button class="btn btn-default reset-btn">Reset</button>
-        </div>
-    </div>
+
 </div>
 </body>
 </html>

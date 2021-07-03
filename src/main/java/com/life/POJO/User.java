@@ -23,4 +23,12 @@ public class User {
     private String unit; //用户所在单位
     private String occupation; //用户的职业
 
+    public User(String pwd,String UUID,String name,String unit,String occupation){
+        this.pwd=pwd;
+        this.UUID=UUID;
+        this.name=name;
+        this.unit=unit;
+        this.occupation=occupation;
+    }
+
 }
