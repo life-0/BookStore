@@ -13,7 +13,7 @@ import java.util.Map;
  *@Date 2020/6/23 10:55
  *@Description: TODO
  */
-
+@Service
 public class BooksServiceImpl implements BooksService{
 
     private BooksMapper booksMapper;

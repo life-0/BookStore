@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-   http://www.springframework.org/schema/beans/spring-beans.xsd
-   http://www.springframework.org/schema/context
-   http://www.springframework.org/schema/context/spring-context.xsd
-   http://www.springframework.org/schema/tx
-   http://www.springframework.org/schema/tx/spring-tx.xsd
-   http://www.springframework.org/schema/aop
-   https://www.springframework.org/schema/aop/spring-aop.xsd">
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/aop
+            https://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--1. 扫描service相关的bean -->
     <context:component-scan base-package="com.life.Service" />
+    <context:component-scan base-package="com.life.AOP" />
 
     <!--2. BooksServiceImpl,UserServiceImpl注入到IOC容器中-->
     <bean id="BooksServiceImpl" class="com.life.Service.BooksServiceImpl">
@@ -32,19 +34,15 @@
     <!--4.aop事务支持-->
     <!--结合AOP实现事务的植入-->
     <!--配置事务的类-->
-    <tx:advice id="txadvice" transaction-manager="transactionManager">
-        <!--给那些方法配置事务-->
-        <!--配置事务的传播性: new propagation-->
+   <!-- <tx:advice id="txadvice" transaction-manager="transactionManager">
+        &lt;!&ndash;给那些方法配置事务&ndash;&gt;
+        &lt;!&ndash;配置事务的传播性: new propagation&ndash;&gt;
         <tx:attributes>
             <tx:method name="*" propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
-
+-->
     <!--配置事务切入-->
-    <aop:config proxy-target-class="true"/>
-    <aop:config>
-        <aop:pointcut id="txtPoint" expression="execution(* com.life.Service.*.*(..))"/>
-        <aop:advisor advice-ref="txadvice" pointcut-ref="txtPoint"/>
-    </aop:config>
-
+    <bean id="annotationLog" class="com.life.AOP.AnnotationLog"/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 </beans>

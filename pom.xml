@@ -71,6 +71,8 @@
             <artifactId>lombok</artifactId>
             <version>1.18.10</version>
         </dependency>
+
+        <!--AOP-->
         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
         <dependency>
             <groupId>org.aspectj</groupId>

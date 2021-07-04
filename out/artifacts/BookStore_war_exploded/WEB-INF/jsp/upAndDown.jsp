@@ -13,7 +13,7 @@
 <body>
 <div>
     <div align="center">
-        <form action="${pageContext.request.contextPath}/upload2" enctype="multipart/form-data" method="post">
+        <form action="${pageContext.request.contextPath}/upload" enctype="multipart/form-data" method="post">
             <input type="file" name="file">
             <input type="submit" value="upload">
         </form>

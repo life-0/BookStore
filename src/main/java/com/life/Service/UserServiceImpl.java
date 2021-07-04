@@ -14,8 +14,8 @@ import java.util.Map;
  *@Date 2020/7/5 16:54
  *@Description: TODO
  */
-
-public class UserServiceImpl implements UserService{
+@Service
+public class UserServiceImpl implements UserService {
 
     private UserMapper userMapper;
 
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public int queryBooksDetail(int UserID, String BookName) {
-        return userMapper.queryBooksDetail (UserID,BookName);
+        return userMapper.queryBooksDetail (UserID, BookName);
     }
 
     @Override
