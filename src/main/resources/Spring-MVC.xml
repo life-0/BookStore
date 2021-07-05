@@ -11,7 +11,7 @@
        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--1. 注解驱动-->
-    <mvc:annotation-driven/>
+    <!--<mvc:annotation-driven/>-->
     <mvc:annotation-driven>
         <!-- 处理请求返回json字符串的中文乱码问题 -->
         <mvc:message-converters register-defaults="true">
