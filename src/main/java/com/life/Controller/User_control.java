@@ -8,6 +8,7 @@ import com.life.Service.UserService;
 import com.life.Utils.GetUserName;
 import com.life.Utils.IDUtils;
 import com.life.Utils.TimeConvert;
+import com.mysql.cj.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.*;
@@ -94,11 +96,13 @@ public class User_control {
         int flag = userService.addUser (user);  //添加成功返回值为1
         if (flag > 0) {
             User checked = userService.QueryUserByUUID (uuid);
-            Cookie username = new Cookie ("username", String.valueOf (checked.getId ()));
+            System.out.println (checked.toString ());
+            System.out.println (checked.getId ());
+            Cookie username = new Cookie ("username", Integer.toString (checked.getId ()));
             Cookie value = new Cookie ("value", checked.getName ());
             response.addCookie (username);
             response.addCookie (value);
-            return "redirect:/UserLogin";
+            return "/index";
         }else {
             return "/Register";
         }
@@ -161,7 +165,8 @@ public class User_control {
         int UserID = 0;
         GetUserName getUserName = new GetUserName ();
         //判定此人是否已经登陆
-
+        System.out.println ("userID: "+request.getParameter ("userID"));
+        System.out.println ("bookName: "+bookName);
         if (request.getParameter ("userID").equals ("")) {
             return "/login";
         } else {
@@ -221,7 +226,7 @@ public class User_control {
         } else {   //否则返回一个错误值提示
             Cookie cookie = new Cookie ("LendBook", "false");   //检测是否借书成功 默认失败
             response.addCookie (cookie);
-            return "forward:/index.jsp"; //跳转到原来的页面
+            return "forward:/index"; //跳转到原来的页面
         }
 
 
