@@ -17,93 +17,47 @@
     <script src="${pageContext.request.contextPath}/static/js/fileinput.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/locales/zh.js"></script>
     <link href="${pageContext.request.contextPath}/static/css/fileinput.min.css" rel="stylesheet"/>
-    <%-- <script type="text/javascript">
-         $(function () {
-             //0.初始化fileinput
-             var oFileInput = new FileInput();
-             oFileInput.Init("txt_file", "/api/OrderApi/ImportOrder");
-         });
-         //初始化fileinput
-         var FileInput = function () {
-             var oFile = new Object();
-
-             //初始化fileinput控件（第一次初始化）
-             oFile.Init = function (ctrlName, uploadUrl) {
-                 var control = $('#' + ctrlName);
-
-                 //初始化上传控件的样式
-                 control.fileinput({
-                     language: 'zh', //设置语言
-                     uploadUrl: uploadUrl, //上传的地址
-                     allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
-                     showUpload: true, //是否显示上传按钮
-                     showCaption: false,//是否显示标题
-                     browseClass: "btn btn-primary", //按钮样式
-                     dropZoneEnabled: true,//是否显示拖拽区域
-                     //minImageWidth: 50, //图片的最小宽度
-                     //minImageHeight: 50,//图片的最小高度
-                     //maxImageWidth: 1000,//图片的最大宽度
-                     //maxImageHeight: 1000,//图片的最大高度
-                     //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
-                     //minFileCount: 0,
-                     maxFileCount: 10, //表示允许同时上传的最大文件个数
-                     enctype: 'multipart/form-data',
-                     validateInitialCount: true,
-                     previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
-                     msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
-                 });
-
-                 //导入文件上传完成之后的事件
-                 $("#txt_file").on("fileuploaded", function (event, data, previewId, index) {
-                     $("#myModal").modal("hide");
-                     var data = data.response.lstOrderImport;
-                     if (data == undefined) {
-                         toastr.error('文件格式类型不正确');
-                         return;
-                     }
-                     //1.初始化表格
-                     var oTable = new TableInit();
-                     oTable.Init(data);
-                     $("#div_startimport").show();
-                 });
-             }
-             return oFile;
-         };
-     </script>--%>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#input-b1').fileinput({
-                language: 'zh',
-                browseLabel: '浏览',
-                initialPreviewAsData: true,
-                dropZoneEnabled: false,
-                showUpload: false,
-                showRemove: false,
-                showClose: false,
-                showBrowse:false,
-                showCaption: false,//是否显示标题
-                allowedFileExtensions: ['jpg', 'png', 'gif', 'bmp', 'svg', 'jpeg'],
-                //默认限制10M
-                maxFileSize: 10240,
-                layoutTemplates: {
-                    footer:'',//隐藏全部小图标；
-                    actionUpload:'',//去除上传预览缩略图中的上传图片；
-                    indicator:'', //去除上传状态图标(左侧➕)
-                    actionDrag: '',//去除拖动图标(通常编辑的时候会显示这个图标)
-                    actionDelete: '',//去除删除图标
+            $('.switchImage').on('change', function () {
+                let filePath = $(this).val(); //获取到input的value，里面是文件的路径
+                let fileSize = (3*1024)/this.files[0].size; //获取文件大小
 
-                    //其他 参考fileinput.js/fileinput.min.js中 搜索 layoutTemplates，可以看到模板内所有元素  需要改哪个，直接在这里赋空字符串就行了
-                },
-                previewSettings: {//限制预览区域的宽高
-                    image: {width: "100px", height: "100px"},
+                let fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase();
+                // 检查是否是图片
+                if (!fileFormat.match(/.png|.jpg|.jpeg/)) {
+                    window.alert('上传错误,文件格式必须为：png/jpg/jpeg ');
+                    return;
                 }
-
+                if (fileSize>1){
+                    window.alert("图片大小必须小于3MB")
+                    return;
+                }
+                var src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
+                $('#imag').attr('src', src);
             });
         });
-
-
     </script>
 
+    <style>
+        .book-image {
+            margin-top: 20px;
+            border: #c0bebe solid 1px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .image-size {
+            width: 97%;
+            height: 60%;
+            margin: 10px 5px 10px 5px;
+        }
+
+        .switch-input {
+            /*opacity: 0;*/
+            visibility: hidden;
+        }
+    </style>
 </head>
 
 <body>
@@ -160,13 +114,16 @@
             <button type="submit" class="btn btn-default" style="float: right">修改</button>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4">
-            <div class="book-image" style="margin-top: 20px">
-                <input id="input-b1" name="input-b1" type="file" class="file"
-                       placeholder="请选择jpge,jpg,png">
+            <div class="book-image">
+                <label for="imag-upload" style="padding-top: 0">
+                    <!-- 保存用户自定义的背景图片 -->
+                    <img id="imag" class="image-size"
+                         src="${pageContext.request.contextPath}/img/十万个为什么.jpg" title="自定义背景" alt=".."/>
+                    <span style="color: red">提示: 只能接受.png .jpg .jpeg且大小不能超过3MB</span>
+                    <input type="file" id="imag-upload" class="switchImage switch-input" value="切换" name="file">
+                </label>
             </div>
         </div>
-
-
     </form>
 
 </div>

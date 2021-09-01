@@ -77,7 +77,7 @@ public class Admin_control {
     }
 
     @RequestMapping("/UpdateBook")
-    public String RenewBook(Books books, @RequestParam("image-book") CommonsMultipartFile image_book,
+    public String RenewBook(Books books, @RequestParam("file") CommonsMultipartFile image_book,
                             HttpServletResponse response, HttpServletRequest request) throws IOException {
         System.out.println (books.toString ());
         if (image_book.isEmpty ()) {
