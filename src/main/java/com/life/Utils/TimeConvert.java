@@ -1,5 +1,7 @@
 package com.life.Utils;
 
+import org.springframework.stereotype.Component;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,8 +11,9 @@ import java.util.Date;
  *@Author life-0
  *@ClassName TimeConvert
  *@Date 2020/7/4 21:10
- *@Description: TODO
+ *@Description: TODO 时间字符转换
  */
+@Component
 public class TimeConvert {
     //自定义时间
     public  Date definiteTime(String date) throws ParseException {

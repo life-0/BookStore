@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Before;
  *@ClassName AnnotationLog
  *@Date 2021/7/04 15:10
  *@Description: TODO
+ *               AOP切面
  */
 @Aspect
 public class AnnotationLog {

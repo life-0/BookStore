@@ -23,9 +23,12 @@
     <script type="text/javascript">
         window.onload = function () {
             //验证用户登录成功才会启用借书还书功能
+
             if (getCookie("username") !== "" && getCookie("value") !== "") {
                 document.getElementById("userID_1").value = getCookie("username");
                 document.getElementById("userID_2").value = getCookie("username");
+                $(".UID").val(getCookie("username"))
+
             } else {
                 window.alert("请登录!")
 
@@ -94,14 +97,14 @@
                         <td>
                             <form class="FormSize" action="${pageContext.request.contextPath}/borrowBook" method="post">
                                 <input type="hidden" name="ISBN" value="${book.ISBN}">
-                                <input type="hidden" name="userID" id="userID_1">
+                                <input type="hidden" name="userID" id="userID_1" class="UID">
                                 <input type="hidden" name="bookName" value="${book.name}">
                                 <input type="hidden" name="amount" value="1">
                                 <input type="submit" value="借书" class="btn btn-default" style="color:#0594a1">
                             </form>
                             <form class="FormSize" action="${pageContext.request.contextPath}/returnBook" method="post">
                                 <input type="hidden" name="ISBN" value="${book.ISBN}">
-                                <input type="hidden" name="UserID" id="userID_2" value="0">
+                                <input type="hidden" name="UserID" id="userID_2" value="0"  class="UID">
                                 <input type="hidden" name="BookName" value="${book.name}">
                                 <input type="hidden" name="Amount" value="1">
                                 <input type="submit" value="还书" class="btn btn-default" style="color: #0594a1">

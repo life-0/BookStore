@@ -41,7 +41,9 @@
                 delCookie("username");
                 delCookie("value");
             });
-
+            $(".register").on("click", function () {
+                window.open("${pageContext.request.contextPath}/Register","_self")
+            });
         }
 
         //每隔1秒来调用displayTime函数
@@ -57,6 +59,7 @@
 
         if (getCookie("LendBook") === "false") {
             window.alert("借书失败! 请先还书再借书");
+            delCookie("LendBook");
         }
 
 
@@ -166,6 +169,7 @@
                     <span class="user_pwd" style="margin-left: 10px;font-size: 12px; color: #232222;width: 30px;"
                           disabled></span>
                     <button style="float: right;margin-top: -15px" class="out">退出</button>
+                    <button style="float: right;margin-top: -15px" class="register">注册</button>
                 </div>
             </div>
         </div>

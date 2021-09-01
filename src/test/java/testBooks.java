@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class testBooks {
     @Test
-    public void test_queryAll(){
+    public void test_queryAll() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext ("applicationContext.xml");
         BooksServiceImpl booksServiceImpl = context.getBean ("BooksServiceImpl", BooksServiceImpl.class);
         List<Books> books = booksServiceImpl.ShowAllBooks ();
@@ -25,7 +25,7 @@ public class testBooks {
     }
 
     @Test
-    public void test_queryByName(){
+    public void test_queryByName() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext ("applicationContext.xml");
         BooksServiceImpl booksServiceImpl = context.getBean ("BooksServiceImpl", BooksServiceImpl.class);
         List<Books> books = booksServiceImpl.QueryBooks ("c");
@@ -36,13 +36,13 @@ public class testBooks {
     }
 
     @Test
-    public void test_ADDBook(){
+    public void test_ADDBook() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext ("applicationContext.xml");
         BooksServiceImpl booksServiceImpl = context.getBean ("BooksServiceImpl", BooksServiceImpl.class);
         //生产UUID工具类
         IDUtils idUtils = new IDUtils ();
-        Books Book = new Books (idUtils.getRandomID(),"海贼王", "尾田荣一郎","漫画出版社",
-                20,"如何成为海贼王指南",3,"漫画类",3);
+        Books Book = new Books (idUtils.getRandomID (), "海贼王", "尾田荣一郎", "漫画出版社",
+                20, "如何成为海贼王指南", 3, "漫画类", 3, "");
         int i = booksServiceImpl.AddBooks (Book);
         System.out.println (i);
 
@@ -54,8 +54,9 @@ public class testBooks {
 
 
     }
+
     @Test
-    public void test_DeleteByName(){
+    public void test_DeleteByName() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext ("applicationContext.xml");
         BooksServiceImpl booksServiceImpl = context.getBean ("BooksServiceImpl", BooksServiceImpl.class);
         int i = booksServiceImpl.deleteBooksByISBN ("C++");

@@ -14,15 +14,16 @@ import org.apache.ibatis.type.Alias;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Alias ("books")
+@Alias("books")
 public class Books {
-    private String  ISBN;   //书号UUID
-    private String  name;   //书名
-    private String  author; //作者名
-    private String  press;  //出版社
+    private String ISBN;   //书号UUID
+    private String name;   //书名
+    private String author; //作者名
+    private String press;  //出版社
     private int price;  //单本定价
-    private String  introduction;   //内容简介
-    private int  status; //书籍现存数量
-    private String  classification; //书籍类别
+    private String introduction;   //内容简介
+    private int status; //书籍现存数量
+    private String classification; //书籍类别
     private int count;  //书籍数量
+    private String imagePath;   //书籍封面路径
 }

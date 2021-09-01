@@ -9,19 +9,20 @@
     </select>
 
     <select id="QueryBooks" parameterType="String" resultType="books">
-        select * from books
+        select *
+        from books
         <where>
-            <if test="name !=null">
-                name like concat('%',#{name},'%')
+            <if test="name != null">
+                name like concat('%', #{name}, '%')
             </if>
         </where>
     </select>
 
     <insert id="AddBooks" parameterType="books">
         insert into books(ISBN, name, author, press, price, introduction,
-                          status, classification, count)
+                          status, classification, count, imagePath)
         values (#{ISBN}, #{name}, #{author}, #{press}, #{price}, #{introduction},
-                #{status}, #{classification}, #{count})
+                #{status}, #{classification}, #{count}, #{imagePath})
     </insert>
 
     <delete id="deleteBooksByISBN" parameterType="string">
@@ -57,7 +58,10 @@
             classification = #{classification},
         </if>
         <if test="count != null">
-            count =#{count}
+            count =#{count},
+        </if>
+        <if test="imagePath != null">
+            imagePath =#{imagePath}
         </if>
         where ISBN = #{ISBN}
     </update>

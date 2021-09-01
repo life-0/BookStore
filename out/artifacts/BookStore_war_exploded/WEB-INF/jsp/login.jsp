@@ -20,17 +20,6 @@
     <link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript">
-        /*function check() {
-
-            if (${result}) {
-                window.alert("登陆成功")
-            } else {
-                window.alert("密码或账号错误!")
-            }
-        }*/
-    </script>
-
 </head>
 <body>
 <div align="center">

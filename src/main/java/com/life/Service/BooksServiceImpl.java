@@ -14,7 +14,7 @@ import java.util.Map;
  *@Description: TODO
  */
 @Service
-public class BooksServiceImpl implements BooksService{
+public class BooksServiceImpl implements BooksService {
 
     private BooksMapper booksMapper;
 

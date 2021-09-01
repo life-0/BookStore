@@ -105,7 +105,7 @@
     </update>
     <!--查询用户已经借了多少本书-->
     <select id="queryUserBookCount" resultType="int">
-        select sum(Amount)
+        select IFNULL(sum(Amount),0)
         from relationship
         where UserID = #{UserID}
     </select>

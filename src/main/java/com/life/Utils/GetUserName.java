@@ -1,5 +1,7 @@
 package com.life.Utils;
 
+import org.springframework.stereotype.Component;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  *@Description: TODO
  *               获得使用者的ID 也就是前端的username  无效值为<=0
  */
+@Component
 public class GetUserName {
     public int getCookie(HttpServletRequest request){
         Cookie[] cookies = request.getCookies ();
