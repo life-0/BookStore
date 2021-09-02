@@ -1,0 +1,16 @@
+com\life\POJO\Relationship.class
+com\life\Service\BooksServiceImpl.class
+com\life\POJO\Books.class
+com\life\Dao\UserMapper.class
+com\life\Utils\IDUtils.class
+com\life\Service\UserService.class
+com\life\Utils\GetUserName.class
+com\life\Utils\TimeConvert.class
+com\life\Dao\BooksMapper.class
+com\life\Service\UserServiceImpl.class
+com\life\Controller\FileController.class
+com\life\Service\BooksService.class
+com\life\POJO\User.class
+com\life\Controller\Admin_control.class
+com\life\Controller\User_control.class
+com\life\AOP\AnnotationLog.class

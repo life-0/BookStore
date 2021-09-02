@@ -1,0 +1,24 @@
+/*
+ *@Author: life-0
+ *@ClassName: image-frame
+ *@Date: 2021/9/2 14:29
+ *TODO @Description: 展示图片的样式
+                    
+*/
+.book-image {
+    margin-top: 20px;
+    border: #c0bebe solid 1px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.image-size {
+    width: 97%;
+    height: 60%;
+    margin: 10px 5px 10px 5px;
+}
+
+.switch-input {
+    /*opacity: 0;*/
+    visibility: hidden;
+}

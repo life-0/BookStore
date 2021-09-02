@@ -13,51 +13,8 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/JQuery/jquery-3.3.1.min.js"></script>
     <link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <%--文件上传使用的插件--%>
-    <script src="${pageContext.request.contextPath}/static/js/fileinput.min.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/locales/zh.js"></script>
-    <link href="${pageContext.request.contextPath}/static/css/fileinput.min.css" rel="stylesheet"/>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.switchImage').on('change', function () {
-                let filePath = $(this).val(); //获取到input的value，里面是文件的路径
-                let fileSize = (3*1024)/this.files[0].size; //获取文件大小
-
-                let fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase();
-                // 检查是否是图片
-                if (!fileFormat.match(/.png|.jpg|.jpeg/)) {
-                    window.alert('上传错误,文件格式必须为：png/jpg/jpeg ');
-                    return;
-                }
-                if (fileSize>1){
-                    window.alert("图片大小必须小于3MB")
-                    return;
-                }
-                var src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
-                $('#imag').attr('src', src);
-            });
-        });
-    </script>
-
-    <style>
-        .book-image {
-            margin-top: 20px;
-            border: #c0bebe solid 1px;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .image-size {
-            width: 97%;
-            height: 60%;
-            margin: 10px 5px 10px 5px;
-        }
-
-        .switch-input {
-            /*opacity: 0;*/
-            visibility: hidden;
-        }
-    </style>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/image-frame.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/image-style.css"/>
 </head>
 
 <body>
@@ -117,15 +74,14 @@
             <div class="book-image">
                 <label for="imag-upload" style="padding-top: 0">
                     <!-- 保存用户自定义的背景图片 -->
-                    <img id="imag" class="image-size"
-                         src="${pageContext.request.contextPath}/img/十万个为什么.jpg" title="自定义背景" alt=".."/>
+                    <img id="imag" class="image-size image"
+                         src="${Book.imagePath}" title="自定义背景" alt=".."/>
                     <span style="color: red">提示: 只能接受.png .jpg .jpeg且大小不能超过3MB</span>
                     <input type="file" id="imag-upload" class="switchImage switch-input" value="切换" name="file">
                 </label>
             </div>
         </div>
     </form>
-
 </div>
 
 </body>
