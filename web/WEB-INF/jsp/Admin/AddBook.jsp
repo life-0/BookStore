@@ -10,7 +10,10 @@
 <head>
     <title>添加书籍页面</title>
     <%--使用Bootstrap美化界面--%>
-    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+    <%--使用Bootstrap美化界面--%>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/JQuery/jquery-3.3.1.min.js"></script>
+    <link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">

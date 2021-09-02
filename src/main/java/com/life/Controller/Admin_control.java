@@ -71,7 +71,6 @@ public class Admin_control {
     public String ToUpdateBook(String ISBN, Model model) {
         System.out.println (ISBN);
         Books book = booksService.QueryBooksByISBN (ISBN);
-        System.out.println (book.toString () + ".....");
         model.addAttribute ("Book", book);
         return "Admin/UpdateBooks";
     }
@@ -80,12 +79,12 @@ public class Admin_control {
     public String RenewBook(Books books, @RequestParam("file") CommonsMultipartFile image_book,
                             HttpServletResponse response, HttpServletRequest request) throws IOException {
         System.out.println (books.toString ());
-        if (image_book.isEmpty ()) {
-            Cookie cookie = new Cookie ("file", "文件为空请重新上传文件!");
-            response.addCookie (cookie);
-        } else {
+        if (!image_book.isEmpty ()) {
+
+
             //上传路径保存设置
-            String path = request.getServletContext ().getRealPath ("/img");
+            String relativePath = "/img";
+            String path = request.getServletContext ().getRealPath (relativePath);
             File realPath = new File (path);
             if (!realPath.exists ()) {
                 realPath.mkdir ();
@@ -94,8 +93,8 @@ public class Admin_control {
             System.out.println ("上传文件保存地址：" + realPath);
 
             //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
-            image_book.transferTo (new File (realPath + "/" + image_book.getOriginalFilename ()));
-            books.setImagePath (realPath + "/" + image_book.getOriginalFilename ());//添加文件图片路径
+            image_book.transferTo (new File (realPath + "\\" + image_book.getOriginalFilename ()));
+            books.setImagePath (relativePath + "\\" + image_book.getOriginalFilename ());//添加文件图片路径
         }
         booksService.updateBooks (books);
         return "redirect:/AllBooks";
