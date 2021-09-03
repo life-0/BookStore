@@ -66,6 +66,11 @@
             height: 60px;
             /*text-align: center;*/
         }
+
+        .font-size {
+            font-weight: 700;
+            /*font-size: 20px;*/
+        }
     </style>
 </head>
 
@@ -84,62 +89,105 @@
             <%--书籍丛数据库查询出来,在book遍历: foreach--%>
             <thead>
             <tr>
-                <th style="text-align: center;">信息</th>
                 <th style="text-align: center;">封面展示</th>
+                <th style="text-align: center;">信息</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="book" items="${books}">
                 <tr class="tr-spacing">
-                        <%--                        <th>书名:</th>--%>
-                    <td>${book.name}</td>
-                        <%--                        <th>作者:</th>--%>
-                    <td>${book.author}</td>
-                        <%--                        <th>出版社:</th>--%>
-                    <td>${book.press}</td>
-                        <%--                        <th>内容简介:</th>--%>
-                    <td>${book.introduction}</td>
-                        <%--                        <th>书籍状态:</th>--%>
-                    <td>${book.status}</td>
-                        <%--                        <th>书籍类别:</th>--%>
-                    <td>${book.classification}</td>
-                        <%--                        <th>书籍数量:</th>--%>
-                    <td>${book.count}</td>
-                    <td>
-                        <form class="FormSize" action="${pageContext.request.contextPath}/borrowBook"
-                              method="post">
-                            <input type="hidden" name="ISBN" value="${book.ISBN}">
-                            <input type="hidden" name="userID" id="userID_1" class="UID">
-                            <input type="hidden" name="bookName" value="${book.name}">
-                            <input type="hidden" name="amount" value="1">
-                            <input type="submit" value="借书" class="btn btn-default" style="color:#0594a1">
-                        </form>
-                        <form class="FormSize" action="${pageContext.request.contextPath}/returnBook"
-                              method="post">
-                            <input type="hidden" name="ISBN" value="${book.ISBN}">
-                            <input type="hidden" name="UserID" id="userID_2" value="0" class="UID">
-                            <input type="hidden" name="BookName" value="${book.name}">
-                            <input type="hidden" name="Amount" value="1">
-                            <input type="submit" value="还书" class="btn btn-default" style="color: #0594a1">
-                        </form>
+                    <td rowspan="9" class="col-md-6">
+                        <div class="book-image ">
+                            <label style="padding-top: 0">
+                                <!-- 保存用户自定义的背景图片 -->
+                                <img id="imag" style="width: 410px;height: 463px"
+                                     class="image-size image" <%--${book.imagePath}--%>
+                                     src='/img/十万个为什么.jpg' title="自定义背景" alt=".."/>
+                            </label>
+                        </div>
                     </td>
                 </tr>
                 <tr class="tr-spacing">
-                    <td colspan="2">3333</td>
+                    <td>
+                        <div class="col-md-4"><span class="font-size">书名:</span></div>
+                        <div class="col-md-4 " style="text-align: center; font-family:'Arial Black',serif">
+                                ${book.name}
+                        </div>
+                    </td>
                 </tr>
-             <%--   <tr class="tr-spacing">
-                    <th>书籍操作:</th>
-
-                </tr>--%>
-                <%-- <div class="col-md-4">
-                     <div class="book-image">
-                         <label style="padding-top: 0">
-                             <!-- 保存用户自定义的背景图片 -->
-                             <img id="imag" class="image-size image"
-                                  src='${book.imagePath}' title="自定义背景" alt=".."/>
-                         </label>
-                     </div>
-                 </div>--%>
+                <tr class="tr-spacing">
+                    <td>
+                        <div class="col-md-4"><span class="font-size">作者:</span></div>
+                        <div class="col-md-4 " style="text-align: center; font-family:'Arial Black',serif">
+                                ${book.author}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr-spacing">
+                    <td>
+                        <div class="col-md-4"><span class="font-size">出版社:</span></div>
+                        <div class="col-md-4 " style="text-align: center; font-family:'Arial Black',serif">
+                                ${book.press}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr-spacing">
+                    <td>
+                        <div class="col-md-4"><span class="font-size">内容简介:</span></div>
+                        <div class="col-md-4 " style="text-align: center; font-family:'Arial Black',serif">
+                                ${book.introduction}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr-spacing">
+                    <td>
+                        <div class="col-md-4"><span class="font-size">书籍状态:</span></div>
+                        <div class="col-md-4 " style="text-align: center; font-family:'Arial Black',serif">
+                                ${book.status}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr-spacing">
+                    <td>
+                        <div class="col-md-4"><span class="font-size">书籍类别:</span></div>
+                        <div class="col-md-4 " style="text-align: center; font-family:'Arial Black',serif">
+                                ${book.classification}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr-spacing">
+                    <td>
+                        <div class="col-md-4"><span class="font-size">书籍数量:</span></div>
+                        <div class="col-md-4 " style="text-align: center; font-family:'Arial Black',serif">
+                                ${book.count}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr-spacing">
+                    <td>
+                        <div class="col-md-4"><span class="font-size">书籍操作:  </span></div>
+                        <div class="col-md-4 " style="text-align: center; font-family:'Arial Black',serif">
+                            <form class="FormSize" action="${pageContext.request.contextPath}/borrowBook"
+                                  method="post">
+                                <input type="hidden" name="ISBN" value="${book.ISBN}">
+                                <input type="hidden" name="userID" id="userID_1" class="UID">
+                                <input type="hidden" name="bookName" value="${book.name}">
+                                <input type="hidden" name="amount" value="1">
+                                <input type="submit" value="借书" class="btn btn-default" style="color:#0594a1">
+                            </form>
+                            <div style="float: right">
+                                <form class="FormSize" action="${pageContext.request.contextPath}/returnBook"
+                                      method="post">
+                                    <input type="hidden" name="ISBN" value="${book.ISBN}">
+                                    <input type="hidden" name="UserID" id="userID_2" value="0" class="UID">
+                                    <input type="hidden" name="BookName" value="${book.name}">
+                                    <input type="hidden" name="Amount" value="1">
+                                    <input type="submit" value="还书" class="btn btn-default" style="color: #0594a1">
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             </c:forEach>
             </tbody>
 
