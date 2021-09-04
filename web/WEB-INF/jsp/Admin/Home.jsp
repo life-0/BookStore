@@ -9,13 +9,20 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/JQuery/jquery-3.3.1.min.js"></script>
 
     <script type="text/javascript">
+        $(document).ready(function () {
+            $('.search').bind('keypress', function (event) {
+                if (event.keyCode == "13") {
+                    Redirect();
+                }
+            });
+        })
 
         function Redirect() {
             let searching = document.getElementById('search');
-            if (searching.value!==""){
-                window.open("${pageContext.request.contextPath}/QueryBook?name="+searching.value+"&flag=admin",'_self')
+            if (searching.value !== "") {
+                window.open("${pageContext.request.contextPath}/QueryBook?name=" + searching.value + "&flag=admin", '_self')
                 //http://localhost:8080/QueryBook?name=%E8%B5%84%E6%9C%AC%E8%AE%BA?flag=admin
-            }else{
+            } else {
                 window.alert("请输入有效值")
             }
         }
@@ -36,13 +43,13 @@
             <%--ToAddBook--%>
             <a class="btn btn-primary" href="${pageContext.request.contextPath}/ToAddBook">新增书籍</a>
         </div>
-        <div class="form-inline" style="float: right" >
+        <div class="form-inline" style="float: right">
             <%--Querybook--%>
-                <input id="search" class="form-control" type="text" name="name"
-                       placeholder="只支持搜索书名" style="float:left;" >
-                <input class="form-control" type="button" value="搜索"
-                       onclick="Redirect()"
-                       style="background-color: #1dbb8e;float:left;" >
+            <input id="search" class="form-control search" type="text" name="name"
+                   placeholder="只支持搜索书名" style="float:left;">
+            <input class="form-control" type="button" value="搜索"
+                   onclick="Redirect()"
+                   style="background-color: #1dbb8e;float:left;">
         </div>
     </div>
 
