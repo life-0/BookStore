@@ -74,7 +74,7 @@
             <button type="submit" class="btn btn-default">添加</button>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4">
-            <div class="book-image">
+            <div class="book-image book_image_load">
                 <label for="imag-upload" style="padding-top: 0">
                     <!-- 保存用户自定义的背景图片 -->
                     <img id="imag" class="image-size image"

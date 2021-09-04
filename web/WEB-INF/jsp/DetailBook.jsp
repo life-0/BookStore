@@ -19,7 +19,8 @@
     <%--使用Bootstrap美化界面--%>
     <link href="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/image-frame.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/image-style.css"/>
     <script type="text/javascript">
         window.onload = function () {
             //验证用户登录成功才会启用借书还书功能
@@ -97,12 +98,12 @@
             <c:forEach var="book" items="${books}">
                 <tr class="tr-spacing">
                     <td rowspan="9" class="col-md-6">
-                        <div class="book-image ">
+                        <div class="book-image book_image_load">
                             <label style="padding-top: 0">
                                 <!-- 保存用户自定义的背景图片 -->
                                 <img id="imag" style="width: 410px;height: 463px"
                                      class="image-size image" <%--${book.imagePath}--%>
-                                     src='/img/十万个为什么.jpg' title="自定义背景" alt=".."/>
+                                     src='${book.imagePath}' title="自定义背景" alt=".."/>
                             </label>
                         </div>
                     </td>

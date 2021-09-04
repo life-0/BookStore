@@ -2,11 +2,17 @@
 
     $(document).ready(function () {
         //初始化图片框: 如果没从数据库中查找到图片路径,则初始化为默认的预设图片
-        let image = $('.image');
-        console.log(image.attr('src') +":");
-        if (image.attr('src') === '') {
-            image.attr('src', '/img/十万个为什么.jpg');
-        }
+
+        $('.book_image_load').ready(function () {
+            let image = $('.image');
+            image.each(function () {
+                console.log($(this).attr('src') + ":");
+                if ($(this).attr('src') === '') {
+                    $(this).attr('src', '/img/default.png');
+                }
+            });
+        });
+
 
         //匹配文件后缀
         function matchSuffix(data) {
