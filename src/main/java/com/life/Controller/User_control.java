@@ -233,6 +233,13 @@ public class User_control {
     }
 
     //还书操作
+    /*
+    *   其他思路
+    *   先查询有无借这本书,然会结果进行验证
+    *   在确认已经借了得情况下,予以归还,修改该书的存储量
+    *   删除关系表中包含这个人的id,书的ISBN,且count为1的数据
+    *   最后统计数量 限定是否超出借出8本书的限制
+    * */
     @RequestMapping("/returnBook")
     public String returnBook(Relationship relationship, Model model) {
         Map<String, Object> map = new HashMap<> ();

@@ -61,8 +61,24 @@ public class Admin_control {
     }
 
     @RequestMapping("/AddBook")
-    public String AddBook(Books book) {
+    public String AddBook(HttpServletRequest request, Books book,
+                          @RequestParam("file") CommonsMultipartFile image_book)throws IOException  {
         System.out.println (book.toString ());
+        if (!image_book.isEmpty ()) {
+            //上传路径保存设置
+            String relativePath = "/img";
+            String path = request.getServletContext ().getRealPath (relativePath);
+            File realPath = new File (path);
+            if (!realPath.exists ()) {
+                realPath.mkdir ();
+            }
+            //上传文件地址
+            System.out.println ("上传文件保存地址：" + realPath);
+
+            //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
+            image_book.transferTo (new File (realPath + "\\" + image_book.getOriginalFilename ()));
+            book.setImagePath (relativePath + "\\" + image_book.getOriginalFilename ());//添加文件图片路径
+        }
         booksService.AddBooks (book);
         return "redirect:/AllBooks";
     }

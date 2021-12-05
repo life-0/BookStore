@@ -74,7 +74,7 @@
             <div class="book-image">
                 <label for="imag-upload" style="padding-top: 0">
                     <!-- 保存用户自定义的背景图片 -->
-                    <img id="imag" class="image-size image"
+                    <img id="imag" class="image-size  image"
                          src="${Book.imagePath}" title="自定义背景" alt=".."/>
                     <span style="color: red">提示: 只能接受.png .jpg .jpeg且大小不能超过3MB</span>
                     <input type="file" id="imag-upload" class="switchImage switch-input" value="切换" name="file">

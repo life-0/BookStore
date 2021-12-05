@@ -10,7 +10,7 @@ import java.util.List;
 public interface BooksMapper {
     List<Books> ShowAllBooks();
 
-    List<Books> QueryBooks(String name);
+    List<Books> QueryBooks(@Param("name") String name);
 
     @Select("select * from books where ISBN = #{ISBN}")
     Books QueryBooksByISBN(@Param("ISBN") String ISBN);

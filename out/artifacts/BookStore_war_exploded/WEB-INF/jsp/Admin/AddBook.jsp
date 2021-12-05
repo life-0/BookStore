@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <form action="${pageContext.request.contextPath}/AddBook" method="post">
+    <form action="${pageContext.request.contextPath}/AddBook" enctype="multipart/form-data" method="post">
         <%
             IDUtils idUtils = new IDUtils ();
             String ISBN = idUtils.getRandomID ();
@@ -74,11 +74,11 @@
             <button type="submit" class="btn btn-default">添加</button>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4">
-            <div class="book-image book_image_load">
+            <div class="book-image">
                 <label for="imag-upload" style="padding-top: 0">
                     <!-- 保存用户自定义的背景图片 -->
                     <img id="imag" class="image-size image"
-                         src='' title="自定义背景" alt=".."/>
+                         src="" title="自定义背景" alt=".."/>
                     <span style="color: red">提示: 只能接受.png .jpg .jpeg且大小不能超过3MB</span>
                     <input type="file" id="imag-upload" class="switchImage switch-input" value="切换" name="file">
                 </label>
